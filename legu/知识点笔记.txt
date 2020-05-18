@@ -1,0 +1,47 @@
+1.	WS握手
+		Websocket协议是为了解决web即时应用中服务器与客户端浏览器全双工通信的问题而设计的,
+	是完全意义上的web应用端的双向通信技术.当建立一个Websocket连接时,为了保持基于HTTP协议的
+	服务器软件和中间件进行兼容工作,客户端打开一个连接使用与HTTP连接的同一端口到服务器进行
+	连接,这样被设计为一个升级的HTTP请求.
+	
+	参考文章链接:
+		https://www.cnblogs.com/oshyn/p/3574497.html
+
+2.	os.name
+		该变量返回当前操作系统的类型,当前只注册3个值:
+		posix	-	linux
+		nt		-	windows
+		java	-	java虚拟机
+		
+3.	python中定义变量的几种方式:
+		1. XX	 :公有变量
+		2. _XX	 :私有属性或方法,类对象和子类可以访问,"from somemoudle import *"禁止导入
+		3. __XX	 :私有属性或方法,无法在外部直接访问(名字重整所以访问不到)
+		4. __XX__:系统定义的名字
+		5. XX_	 :用于避免与Python关键字冲突
+
+4.	Python的hasattr() getattr() setattr()函数
+		1. hasattr(object,name)
+			判断一个对象里面是否有name属性或方法,返回bool值
+		
+		2. getattr(object,name[,default])
+			获取对象object的属性或方法,如果不存在打印出默认值
+
+		3. setattr(object,name,values)
+			给对象属性赋值,若属性不存在,先创建再赋值	
+
+5.	提高python的运行效率
+	1.数据结构
+		能用字典就不用列表:字典在索引查找和排序方面远远高于列表
+	2.多用python中封装好的模块库,尽量使用内置方法
+		内置方法是C写的		
+	3.使用生成器
+	4.针对循环优化
+		尽量避免在循环中访问变量的属性
+	5.字符串拼接
+		使用 "".join 或者 占位符(%) 或者 .format
+
+
+	
+	
+

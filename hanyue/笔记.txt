@@ -1,0 +1,7 @@
+1.常用变量名
+    foo
+    bar
+    qux
+    fred
+    thud
+
