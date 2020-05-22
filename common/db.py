@@ -9,8 +9,9 @@ import threading
 # 连接本地数据库
 class DB(object):
     _instance_lock = threading.Lock()
-    def __init__(self, host=None, part=None, user=None, password=None, database=None, charset=None, place=None):
-        if place:
+    def __init__(self, host=None, port=None, user=None, password=None, database=None, charset=None, place=None):
+
+        if place or len([ v for k, v in locals().items() if k != "self" and not v ]) == 1:
             self.defaultConfig(place, database)
         else:
             self.setConfig(host, port, user, password, database, charset)
@@ -44,12 +45,7 @@ class DB(object):
 
      # 设置参数
     def setConfig(self, host, port, user, password, database, charset):
-        self.host = host
-        self.port = port
-        self.user = user
-        self.password = password
-        self.database = database
-        self.charset = charset
+        self.__dict__.update({ k:v for k,v in locals().items() if k != "self"})
 
     # 连接数据库, 创建光标
     def connectDB(self):

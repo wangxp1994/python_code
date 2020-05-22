@@ -14,17 +14,18 @@ skt = Faker("zh_CN")
 
 class Spider(object):
 
-    def __init__(self, url=None, parse_str=None, headers=None):
-        self.__dict__.update({k:v for k,v in locals().items() if k != "self"})
-        if self.headers == None:
+    def __init__(self, url=None, parse_str=None, headers=None, **kwargs):
+        self.__dict__.update({k:v for k,v in locals().items() if k not in ["self", "kwargs"]})
+        self.__dict__.update(kwargs)
+        if not self.headers:
             self.headers = {
                 "User-Agent": skt.chrome()
             }
 
     def __call__(self, html_method=None, parse_method=None, **kwargs):
-        if html_method == None:
+        if not html_method:
             html_method = self.html_method
-        if parse_method == None:
+        if not parse_method:
             parse_method = self.parse_method
 
         html_dict = {
@@ -38,10 +39,10 @@ class Spider(object):
         parse_dict[parse_method]()
 
     def getHtmlByRequest(self, url=None, headers=None, **kwargs):
-        if url == None:
+        if not url:
             url = self.url
-        if headers==None:
-            self.randheaders(**kwargs)
+        if not headers:
+            headers = self.headers
 
         res = requests.get(url=url, headers=self.headers)
         res.encoding = "utf8"
@@ -49,20 +50,20 @@ class Spider(object):
         return self.html
 
     def parseHtmlByXpath(self, parse_str=None, html=None):
-        if parse_str == None:
-            parse_str = self.x_str
-        if html == None:
-            html == self.html
+        if not parse_str:
+            parse_str = self.parse_str
+        if not html:
+            html = self.html
 
         etree_html = etree.HTML(html)
         self.result = etree_html.xpath(parse_str)
         return self.result
 
     def parseHtmlByRe(self, parse_str=None, html=None):
-        if parse_str == None:
-            parse_str = self.x_str
-        if html == None:
-            html == self.html
+        if not parse_str:
+            parse_str = self.parse_str
+        if not html:
+            html = self.html
         self.result = re.findall(parse_str, html)
         return self.result
 
