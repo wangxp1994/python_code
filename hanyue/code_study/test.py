@@ -1,15 +1,22 @@
 # -*- coding: utf-8 -*-
 
+import sys
+from PyQt5.QtWidgets import QWidget,QApplication
 
+class Example(QWidget):
 
+    def __init__(self):
+        super().__init__()
 
-a = [1, 2, 3, 4]
+        self.initUI()
 
-import random
+    def initUI(self):
+        self.setGeometry(300,300,250,150)
+        self.setWindowTitle("")
+        self.show()
 
-print random.choice(a)
-
-
-
-
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    ex = Example()
+    sys.exit(app.exec_())
 
