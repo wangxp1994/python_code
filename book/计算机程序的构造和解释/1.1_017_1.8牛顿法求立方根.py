@@ -26,6 +26,8 @@ def accuracy(x):
 def extract(x):
 	return  extract_iter(1, x)	# 每次从1开始猜
 
-num = extract(8)
-print("num = ", num)
-print("num ^ 3 = ", num**3)
+
+if __name__ == '__main__':
+	num = extract(8)
+	print("num = ", num)
+	print("num ^ 3 = ", num**3)

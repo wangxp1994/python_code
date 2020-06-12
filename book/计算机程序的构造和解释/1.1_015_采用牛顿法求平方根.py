@@ -11,23 +11,29 @@ def sqrt_iter(guess, x):
 	else:
 		return sqrt_iter(improve(guess, x), x)
 
+
 def improve(guess, x):
 	sum = guess + x / guess
 	return sum / 2
 
+
 # 终止递归判断
 def good_enough(guess, x):
-	sub = guess**2 - x
+	sub = guess ** 2 - x
 	if abs(sub) < accuracy(x):
 		return True
 	return False
 
+
 def accuracy(x):
 	return x / 10000
 
-def sqrt(x):
-	return  sqrt_iter(1, x)	# 每次从1开始猜
 
-num = sqrt(0.00001)
-print("num = ", num)
-print("num ^ 2 = ", num**2)
+def sqrt(x):
+	return sqrt_iter(1, x)  # 每次从1开始猜
+
+
+if __name__ == '__main__':
+	num = sqrt(0.00001)
+	print("num = ", num)
+	print("num ^ 2 = ", num ** 2)
