@@ -8,19 +8,22 @@ def isPrime(n):
 		return True
 	return False
 
+
 def smallest_divisor(n):
 	return find_divisor(n, 2)
 
+
 def isDivides(a, b):
-	return b%a==0
+	return b % a == 0
+
 
 def find_divisor(n, test_divisor):
-	if test_divisor**2 > n:
+	if test_divisor ** 2 > n:
 		return n
 	elif isDivides(test_divisor, n):
 		return test_divisor
 	else:
-		return find_divisor(n, test_divisor+1)
+		return find_divisor(n, test_divisor + 1)
 
 
 if __name__ == '__main__':

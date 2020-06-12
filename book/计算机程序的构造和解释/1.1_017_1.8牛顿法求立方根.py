@@ -9,25 +9,29 @@ def extract_iter(guess, x):
 	else:
 		return extract_iter(improve(guess, x), x)
 
+
 def improve(guess, x):
-	sum = 2 * guess + x / guess**2
+	sum = 2 * guess + x / guess ** 2
 	return sum / 3
+
 
 # 终止递归判断
 def good_enough(guess, x):
-	sub = guess**3 - x
+	sub = guess ** 3 - x
 	if abs(sub) < accuracy(x):
 		return True
 	return False
 
+
 def accuracy(x):
 	return x / 10000
 
+
 def extract(x):
-	return  extract_iter(1, x)	# 每次从1开始猜
+	return extract_iter(1, x)  # 每次从1开始猜
 
 
 if __name__ == '__main__':
 	num = extract(8)
 	print("num = ", num)
-	print("num ^ 3 = ", num**3)
+	print("num ^ 3 = ", num ** 3)

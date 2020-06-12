@@ -5,6 +5,7 @@
 
 from SICP import *
 
+
 # 我的写法,应该是错误的, 使用的是递归 + 迭代
 def fast_expt(b, n):
 	def expt(b, counter, product):
@@ -14,10 +15,12 @@ def fast_expt(b, n):
 		elif counter == 1:
 			return product
 		elif not even(counter):
-			return b * expt(b, counter-1, product)
+			return b * expt(b, counter - 1, product)
 		else:
-			return expt(b, counter/2, square(product))
+			return expt(b, counter / 2, square(product))
+
 	return expt(b, n, b)
+
 
 # 我们设置一个变量a，让abn的值保持不变，初始a=1，那么在最后n=0的时候a的值就是bn
 # 1)若n是偶数   a(b2)n/2
@@ -28,9 +31,10 @@ def fast_expt2(b, n):
 		if counter == 0:
 			return product
 		elif not even(counter):
-			return expt(b, counter-1, product*b)
+			return expt(b, counter - 1, product * b)
 		else:
-			return expt(square(b), counter/2, product)
+			return expt(square(b), counter / 2, product)
+
 	return expt(b, n, 1)
 
 

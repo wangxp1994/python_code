@@ -5,6 +5,7 @@
 
 from SICP import *
 
+
 # 欧几里得算法
 def GCD(a, b):
 	print(a, b)

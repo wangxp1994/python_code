@@ -10,17 +10,20 @@
 def recursive_fun(n):
 	if n < 3:
 		return n
-	return recursive_fun(n-1) + recursive_fun(n-2) * 2 + recursive_fun(n-3)
+	return recursive_fun(n - 1) + recursive_fun(n - 2) * 2 + recursive_fun(n - 3)
+
 
 # 迭代计算
 def iterate_fun(n):
 	if n < 3:
 		return n
+
 	def iter_fun(a, b, c, count):
 		if count == 0:
 			return c
-		return iter_fun(b, c, a+2*b+c, count-1)
-	return iter_fun(0, 1, 2, n-2)
+		return iter_fun(b, c, a + 2 * b + c, count - 1)
+
+	return iter_fun(0, 1, 2, n - 2)
 
 
 if __name__ == '__main__':
