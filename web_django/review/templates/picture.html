@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图片观看</title>
+</head>
+<body>
+     {% load static %}
+    <h3>{{ filename }}</h3>
+     <a href="/review/index"><button>返回</button></a>
+     <a href="/review/download/{{ filename }}"><button>下载</button></a>
+     <br>
+     <img src="{% static path %}">
+</body>
+</html>

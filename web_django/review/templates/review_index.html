@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>review_index</title>
+</head>
+<style>
+    img{
+    height: 300px;
+}
+
+</style>
+<body>
+   {% for p in picture_list %}
+       <a href="/review/picture/{{ p.name }}"><img src="{{ p.path }}"></a>
+       {% if forloop.counter|divisibleby:3 == 1  %}
+           <br>
+       {% endif %}
+    {% endfor %}
+</body>
+</html>
