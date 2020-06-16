@@ -5,8 +5,9 @@
 
 from django.conf.urls import url
 
-from main.views import index
+from .views import index_views
 
 urlpatterns = [
-    url(r'', index),
+
+    url(r'', index_views),
 ]
