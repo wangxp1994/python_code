@@ -17,11 +17,12 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
 
-from web_django.views import index
+from .views import index_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^main/', include('main.urls')),
-    url(r'^url_test/', include('url_test.urls')),
-    url(r'', index),
+    url(r'^review/', include('review.urls')),
+
+    url(r'', index_views),
 ]

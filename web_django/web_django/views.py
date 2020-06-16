@@ -4,5 +4,5 @@
 # datetime : 2020/06/08 14:44
 from django.http import HttpResponse
 
-def index(request):
+def index_views(request):
 	return HttpResponse("web_django index")
