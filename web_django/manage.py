@@ -22,3 +22,8 @@ if __name__ == '__main__':
 
 
 # wang 123456
+
+# 1. 创建更改的文件
+# python3 manage.py makemigrations
+# 2. 将生成的py文件应用到数据库
+# python3 manage.py migrate

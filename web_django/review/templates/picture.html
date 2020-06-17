@@ -1,15 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>图片观看</title>
-</head>
-<body>
+{% extends "header.html" %}
+
+{% block title %}
+    图片观看
+{% endblock %}
+
+{% block body %}
      {% load static %}
-    <h3>{{ filename }}</h3>
+    <h3>{{ obj.getWord }}</h3>
      <a href="/review/index"><button>返回</button></a>
-     <a href="/review/download/{{ filename }}"><button>下载</button></a>
+     <a href="/review/download/{{ obj.name }}"><button>下载</button></a>
+    <a href="/review/delete/{{ obj.name }}"><button>删除</button></a>
      <br>
-     <img src="{% static path %}">
-</body>
-</html>
+    <br>
+     <img src="{{ obj.path.url }}">
+{% endblock %}

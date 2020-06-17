@@ -17,6 +17,8 @@ urlpatterns = [
 	# 文件上传下载测试
 	path(r'download/<filename>', download_views),
 	path(r'picture/<filename>', picture_views),
+	path(r'delete/<filename>', delete_views),
+	path(r'update/<filename>', update_views),
 	path(r'up', up_views),
 
 	url(r'', index_views),

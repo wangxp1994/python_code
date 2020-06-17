@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 
-a, b, c = 1, 1, 1
-
-print(a, b, c)
-print(a, b, c)
-print(a, b, c)
-print(a, b, c)
-print(a, b, c)
+a = {
+	1:1,
+	2:2,
+	3:3
+}
+print(a.pop(4, None))
 
