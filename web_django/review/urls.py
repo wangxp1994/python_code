@@ -21,6 +21,9 @@ urlpatterns = [
 	path(r'update/<filename>', update_views),
 	path(r'up', up_views),
 
+	# 音乐播放测试
+	path(r'music_1/<name>/<int:flag>', music_views_1),
+
 	url(r'', index_views),
 	url(r'^index/$', index_views),
 ]

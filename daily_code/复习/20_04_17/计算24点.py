@@ -3,24 +3,31 @@ from itertools import permutations, product
 # 计算24点
 
 # 主函数
-def main():
-    num_list = get_num()
+def main(num_list = None):
+    if num_list == None:
+        num_list = get_num()
     all_list = create_all_list(num_list)
     calculate_list = create_calculate_list()
-    success_flag = False
     for i in all_list:
         for j in calculate_list:
-            compute_str = "((a{}b){}c){}d".format(*j)
-            sum = eval(compute_str,{"a":i[0],"b":i[1],"c":i[2],"d":i[3]})
-            if sum == 24:
-                compute_str = "(({}{}{}){}{}){}{}=24".format(i[0],j[0],i[1],j[1],i[2],j[2],i[3])
-                print(compute_str)
-                success_flag = True
-                break
-        if success_flag:
-            break
+            lst = [
+                    "((a{}b){}c){}d",
+                    "(a{}b){}(c{}d)",
+                    "a{}(b{}(c{}d))",
+                   ]
+
+            for compute_str in lst:
+                try:
+                    sum = eval(compute_str.format(*j), {"a":i[0],"b":i[1],"c":i[2],"d":i[3]})
+                except:
+                    continue
+                if abs(sum - 24) < 0.00001:
+                    compute_str_ = compute_str.replace("a", "{}").replace("b", "{}").replace("c", "{}").replace("d", "{}") + "= 24"
+                    print(compute_str_.format(i[0],j[0],i[1],j[1],i[2],j[2],i[3]))
+                    return True
     else:
-        print("没有答案!")
+        print("--------没有答案!--------", num_list)
+        return False
 
 # 获取四个数字
 def get_num():
@@ -51,4 +58,11 @@ def create_calculate_list():
     return calculate_list
 
 if __name__ == '__main__':
-    main()
+
+    with open('24.txt', 'r', encoding='utf8') as f:
+        for i in f:
+            if i.isspace():
+                continue
+            e  =  i.strip().split('－－－')[0].strip().split(',')
+            ee = [int(n) for n in e]
+            main(ee)

@@ -6,6 +6,7 @@ from .forms import *
 import os
 import datetime
 import random
+import mutagen
 
 
 def index_views(request, *args, **kwargs):
@@ -102,7 +103,7 @@ def up_views(request, *args, **kwargs):
 				'nameTail': file.name.split('.')[1],
 				'uptime': datetime.datetime.now(),
 				'path': file,
-				'words':words,
+				'words': words,
 			}
 			# 增加的第一种方式
 			# Picture.objects.create(**dic)
@@ -129,9 +130,9 @@ def update_views(request, *args, **kwargs):
 	if request.method == "GET":
 		return render(request, 'update_words.html')
 
-def Picture_Random_orderTime():
 
-	flag = True		# 是否更新数据
+def Picture_Random_orderTime():
+	flag = True  # 是否更新数据
 	last = OrderTime.objects.last()
 	if last:
 		now = datetime.datetime.now()
@@ -148,3 +149,27 @@ def Picture_Random_orderTime():
 			obj.orderTime = random.randint(1, 999)
 			obj.save()
 		OrderTime.objects.create(uptime=datetime.datetime.now())
+
+
+def music_views_1(request, *args, **kwargs):
+	path = os.path.join(BASE_DIR, 'static', 'music')
+	listdir = os.listdir(path)
+	name = kwargs['name']
+
+	if name == "_random_" or name not in listdir:
+		name = random.choice(os.listdir(path))
+
+	music_path = os.path.join(path, name)
+	inf = mutagen.File(music_path)
+	tags = inf.tags
+
+	if kwargs['flag'] == 0:
+		TIT2 = tags["TIT2"].text[0]	# 歌曲名
+		TPE1 = tags["TPE1"].text[0] # 作者
+		TALB = tags["TALB"].text[0] # 专辑
+		name_ = 'music/' + name
+		return render(request, 'music_1.html', locals())
+
+	elif kwargs['flag'] == 1:
+		img = tags['APIC:'].data
+		return HttpResponse(img, content_type='image/jpeg')

@@ -8,6 +8,7 @@
 """
 
 from random import randint
+import math
 
 
 # 求余
@@ -72,6 +73,54 @@ def GCD(a, b):
 	if b == 0:
 		return a
 	return GCD(b, remainder(a, b))
+
+
+# 平均数
+def average(*args):
+	sum_ = sum(args)
+	return sum_ / len(args)
+
+
+# 函数不动点
+def fixed_point(f, first_guess, tolerance=0.00001):
+	def close_enough(v1, v2):
+		return abs(v1 - v2) < tolerance
+
+	def try_(guess):
+		next = f(guess)
+		if close_enough(guess, next):
+			return next
+		return try_(next)
+
+	return try_(first_guess)
+
+
+def cos(x):
+	return math.cos(x)
+
+
+def sin(x):
+	return math.sin(x)
+
+
+def sqrt(x):
+	return math.sqrt(x)
+
+
+# 求导数
+def deriv(g, dx=0.00001):
+	return lambda x: (g(x + dx) - g(x)) / dx
+
+
+# 牛顿法转换
+def newton_transform(g):
+	return lambda x: x - (g(x) / deriv(g)(x))
+
+
+# 平均阻尼
+def average_damp(f):
+	return lambda x: average(x, f(x))
+
 
 if __name__ == '__main__':
 	print(random(100))
