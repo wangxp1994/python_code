@@ -154,6 +154,9 @@ def Picture_Random_orderTime():
 def music_views_1(request, *args, **kwargs):
 	path = os.path.join(BASE_DIR, 'static', 'music')
 	listdir = os.listdir(path)
+
+	listdir = [i for i in listdir if i.endswith(".mp3")]
+
 	name = kwargs['name']
 
 	if name == "_random_" or name not in listdir:

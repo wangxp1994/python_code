@@ -1,0 +1,63 @@
+{% extends "header.html" %}
+
+{% block title %}
+    音乐
+{% endblock %}
+
+{% block body %}
+    <style>
+    img.list{
+        height: 200px;
+        width: 200px;
+    }
+    img.music{
+        height: 400px;
+        width: 400px;
+    }
+    #rand{
+        height: 20px;
+        width: 200px;
+        margin:20px;
+    }
+    #music{
+        float: left;
+        margin-left: 20%;
+    }
+    #list{
+        float: right;
+        margin-right: 10%;
+    }
+</style>
+
+
+        {% load static %}
+        <script src={% static 'js/jquery-3.4.1.js' %}></script>
+
+    <div id="music">
+        <h2>{{ TIT2 }}</h2>
+        <h4>{{ TPE1 }} - {{ TALB }}</h4>
+
+        <img src="/review/music_1/{{ name }}/1" alt="" class="music">
+        <br>
+
+        <audio controls="controls" autoplay="autoplay">
+            <source src="{% static name_ %}" type="audio/mpeg" />
+        </audio>
+    <br>
+          <a href="/review/music_1/_random_/0"><button id="rand">随机</button></a>
+         <br>
+
+    </div>
+    <div id="list">
+           {% for p in listdir %}
+       <a href="/review/music_1/{{ p }}/0" title="{{ p }}">
+           <img src="/review/music_1/{{ p }}/1" class="list">
+       </a>
+       {% if forloop.counter|divisibleby:4 == 1  %}
+           <br>
+       {% endif %}
+    {% endfor %}
+    <br>
+    </div>
+
+{% endblock %}
