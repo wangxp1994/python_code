@@ -14,4 +14,6 @@ class PictureUpForm(forms.Form):
 		max_length=50,
 		label="标签",
 	)
-	file = forms.ImageField()
+	file = forms.ImageField(
+		label="图片",
+	)

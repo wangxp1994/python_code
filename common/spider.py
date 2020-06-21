@@ -14,9 +14,9 @@ skt = Faker("zh_CN")
 
 class Spider(object):
 
-    def __init__(self, url=None, parse_str=None, headers=None, **kwargs):
-        self.__dict__.update({k:v for k,v in locals().items() if k not in ["self", "kwargs"]})
-        self.__dict__.update(kwargs)
+    def __init__(self, url=None, headers=None, html_method="request",
+                 parse_method="xpath", parse_str=None):
+        self.__dict__.update({k:v for k,v in locals().items() if k != "self"})
         if not self.headers:
             self.headers = {
                 "User-Agent": skt.chrome()
@@ -33,20 +33,36 @@ class Spider(object):
         }
         parse_dict = {
             "xpath": self.parseHtmlByXpath,
-            "re": self.parseHtmlByRe
+            "re": self.parseHtmlByRe,
         }
         html_dict[html_method](**kwargs)
         parse_dict[parse_method]()
 
-    def getHtmlByRequest(self, url=None, headers=None, **kwargs):
+    def __str__(self):
+        return self.html
+
+    def save(self, name='spider.html', path='../'):
+        with open(path + name, 'w', encoding='utf8') as f:
+            f.write(self.html)
+
+    def saveBytes(self, name='file.x', path='../'):
+        with open(path + name, 'wb') as f:
+            f.write(self.html)
+
+    def getHtmlByRequest(self, url=None, headers=None, beautiful=True, **kwargs):
         if not url:
             url = self.url
         if not headers:
             headers = self.headers
 
-        res = requests.get(url=url, headers=self.headers)
-        res.encoding = "utf8"
-        self.html = BeautifulSoup(res.content).prettify()
+        headers.update(kwargs.get('params', {}))
+
+        self.res = requests.get(url=url, headers=headers, ) # verify=False
+        self.res.encoding = "utf8"
+        self.html = self.res.content
+
+        if beautiful:
+            self.html = BeautifulSoup(self.res.content).prettify()
         return self.html
 
     def parseHtmlByXpath(self, parse_str=None, html=None):
@@ -67,13 +83,11 @@ class Spider(object):
         self.result = re.findall(parse_str, html)
         return self.result
 
-
-
-
 if __name__ == '__main__':
-    s = Spider()
-    print(s("https://www.baidu.com/", Host="www.baidu.com"))
-
+    s = Spider(url="https://www.baidu.com/?tn=21002492_30_hao_pg")
+    s.getHtmlByRequest()
+    print(s)
+    s.save()
 
 
 

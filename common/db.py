@@ -24,7 +24,7 @@ class DB(object):
             config = {
                 "host" : "localhost",
                 "port": 3306,
-                "user": "wxp",
+                "user": "root",
                 "password": "123456",
                 "database": "test",
                 "charset": "utf8"
@@ -68,8 +68,11 @@ class DB(object):
 
     # 对象销毁时关闭数据库
     def __del__(self):
-        self.cursor.close()
-        self.conn.close()
+        try:
+            self.cursor.close()
+            self.conn.close()
+        except:
+            pass
         print("--> 数据库已关闭")
 
     # 实现单例模式
