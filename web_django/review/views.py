@@ -7,6 +7,7 @@ import os
 import datetime
 import random
 import mutagen
+import json
 
 
 def index_views(request, *args, **kwargs):
@@ -160,7 +161,7 @@ def music_views_1(request, *args, **kwargs):
 	name = kwargs['name']
 
 	if name == "_random_" or name not in listdir:
-		name = random.choice(os.listdir(path))
+		name = random.choice(listdir)
 
 	music_path = os.path.join(path, name)
 	inf = mutagen.File(music_path)

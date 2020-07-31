@@ -10,4 +10,5 @@ from .views import index_views
 urlpatterns = [
 
     url(r'', index_views),
+    url(r'^index/$', index_views),
 ]

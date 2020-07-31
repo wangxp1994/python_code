@@ -14,9 +14,9 @@
         height: 400px;
         width: 400px;
     }
-    #rand{
-        height: 20px;
-        width: 200px;
+    button{
+        height: 30px;
+        width: 60px;
         margin:20px;
     }
     #music{
@@ -34,17 +34,19 @@
         <script src={% static 'js/jquery-3.4.1.js' %}></script>
 
     <div id="music">
-        <h2>{{ TIT2 }}</h2>
-        <h4>{{ TPE1 }} - {{ TALB }}</h4>
+        <h2>{{ TIT2|slice:20 }}</h2>
+        <h4>{{ TPE1 }} - {{ TALB|slice:20 }}</h4>
 
         <img src="/review/music_1/{{ name }}/1" alt="" class="music">
         <br>
 
-        <audio controls="controls" autoplay="autoplay">
+        <audio controls="controls" autoplay="autoplay" id="audio">
             <source src="{% static name_ %}" type="audio/mpeg" />
         </audio>
     <br>
-          <a href="/review/music_1/_random_/0"><button id="rand">随机</button></a>
+
+        <button onclick="songLast()">上一曲</button>
+        <button onclick="songNext()">下一曲</button>
          <br>
 
     </div>
@@ -59,5 +61,63 @@
     {% endfor %}
     <br>
     </div>
+
+    <script>
+        var songs = {{listdir|safe}}
+        var name = "{{ name }}"
+        var mode = 0
+
+        window.onload
+        {
+            var next = getNext()
+            var url = parseUrl(next)
+            var audio = document.getElementById("audio");
+            audio.loop = false;
+            audio.addEventListener('ended', function () {
+                {#window.location.replace(url);#}
+                window.location.href = url;
+            }, false);
+        }
+
+        {#下一曲索引#}
+        function getNext() {
+            var index = songs.indexOf(name)
+            var next = index + 1
+            if(next >= songs.length){
+                next = 0
+            }
+            return next
+        }
+
+        {#上一曲索引#}
+        function getLast() {
+            var index = songs.indexOf(name)
+            var last = index - 1
+            if(last < 0 ){
+                last = songs.length - 1
+            }
+            return last
+        }
+
+        {#根据索引返回地址#}
+        function parseUrl(index) {
+            return "http://" + window.location.host + "/review/music_1/" + songs[index] + "/0"
+        }
+
+        function songNext() {
+            var next = getNext()
+            var url = parseUrl(next)
+            window.location.href = url;
+        }
+
+        function songLast() {
+            var last = getLast()
+            var url = parseUrl(last)
+            window.location.href = url;
+        }
+
+        
+
+</script>
 
 {% endblock %}
